@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.io.IOException;
 
+import chatbot.assignment.com.chatbot.constants.APIConstants;
 import chatbot.assignment.com.chatbot.constants.AppConstants;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -25,7 +26,6 @@ public class AuthInterceptor implements Interceptor {
             Request newRequest = originalRequest.newBuilder()
                  //   .addHeader(AppConstants.AUTHORIZATION, AppConstants.TOKEN)
                     .addHeader(AppConstants.CONTENT_TYPE, AppConstants.APPLICATION_JSON)
-                    .addHeader(AppConstants.REQUESTED_WITH, AppConstants.XML_HTTP_REQUEST)
                     .url(newHttpUrl)
                     .build();
 

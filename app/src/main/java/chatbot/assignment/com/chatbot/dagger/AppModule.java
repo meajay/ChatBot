@@ -3,8 +3,10 @@ package chatbot.assignment.com.chatbot.dagger;
 import android.app.Application;
 import android.content.Context;
 
+import chatbot.assignment.com.chatbot.chat.presenter.ChatBotPresenter;
 import chatbot.assignment.com.chatbot.dagger.qualifier.ApplicationContext;
 import chatbot.assignment.com.chatbot.dagger.scope.AppScope;
+import chatbot.assignment.com.chatbot.network.api.ChatBotAPI;
 import dagger.Module;
 import dagger.Provides;
 
@@ -30,5 +32,11 @@ public class AppModule {
     @AppScope
     Context provideContext() {
         return application.getBaseContext();
+    }
+
+    @Provides
+    @AppScope
+    ChatBotPresenter provideChatBotPresenter(ChatBotAPI chatBotAPI){
+        return new ChatBotPresenter(chatBotAPI);
     }
 }

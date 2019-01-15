@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import chatbot.assignment.com.chatbot.dagger.qualifier.ApplicationContext;
 import chatbot.assignment.com.chatbot.dagger.scope.AppScope;
+import chatbot.assignment.com.chatbot.network.api.ChatBotAPI;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -40,5 +41,11 @@ public class NetworkModule {
                 .addInterceptor(new ChuckInterceptor(context));
 
         return builder.build();
+    }
+
+    @Provides
+    @AppScope
+    ChatBotAPI provideChatBotAPI(){
+        return new ChatBotAPI();
     }
 }
