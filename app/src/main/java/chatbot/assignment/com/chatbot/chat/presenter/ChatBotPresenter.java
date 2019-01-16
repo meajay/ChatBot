@@ -25,19 +25,13 @@ public class ChatBotPresenter extends BasePresenter<ChatBotMvpView> implements C
 
     @Override
     public void fetchChatResponse(String inputText) {
-//        chatBotAPI.fetchChatData(APIConstants.FETCH_CHAT_URL, inputText).subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread()).subscribe(chatResponse -> {
-//                    getView()
-//                            .onChatResponse(AppConstants.SUCCESS, "success", chatResponse.getMessage());
-//                },
-//                throwable -> {
-//                    getView().onChatResponse(AppConstants.ERROR, "error", null);
-//                });
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setChatBotName("Rohit");
-        chatMessage.setMessage("shut up");
-        chatMessage.setSender(false);
-        chatMessage.setChatMessaqeId(System.currentTimeMillis());
-        getView().onChatResponse(AppConstants.SUCCESS, "success", chatMessage);
+        chatBotAPI.fetchChatData(APIConstants.FETCH_CHAT_URL, inputText).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(chatResponse -> {
+                    getView()
+                            .onChatResponse(AppConstants.SUCCESS, "success", chatResponse.getMessage());
+                },
+                throwable -> {
+                    getView().onChatResponse(AppConstants.ERROR, "error", null);
+                });
     }
 }
