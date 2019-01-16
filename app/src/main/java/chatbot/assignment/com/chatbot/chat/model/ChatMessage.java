@@ -2,6 +2,8 @@ package chatbot.assignment.com.chatbot.chat.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import nl.qbusict.cupboard.annotation.Ignore;
+
 /**
  * Created by Ajay on 15-01-2019.
  */
@@ -14,6 +16,8 @@ public class ChatMessage {
     private String message;
     @SerializedName("emotion")
     private String emotion;
+    private transient boolean isSender;
+    private transient long chatMessaqeId;
 
     public String getChatBotName() {
         return chatBotName;
@@ -45,5 +49,21 @@ public class ChatMessage {
 
     public void setEmotion(String emotion) {
         this.emotion = emotion;
+    }
+
+    public boolean isSender() {
+        return isSender;
+    }
+
+    public void setSender(boolean sender) {
+        isSender = sender;
+    }
+
+    public long getChatMessaqeId() {
+        return chatMessaqeId;
+    }
+
+    public void setChatMessaqeId(long chatMessaqeId) {
+        this.chatMessaqeId = chatMessaqeId;
     }
 }

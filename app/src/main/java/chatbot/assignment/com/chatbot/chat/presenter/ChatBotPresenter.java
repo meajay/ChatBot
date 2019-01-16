@@ -36,6 +36,8 @@ public class ChatBotPresenter extends BasePresenter<ChatBotMvpView> implements C
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setChatBotName("Rohit");
         chatMessage.setMessage("shut up");
+        chatMessage.setSender(false);
+        chatMessage.setChatMessaqeId(System.currentTimeMillis());
         getView().onChatResponse(AppConstants.SUCCESS, "success", chatMessage);
     }
 }

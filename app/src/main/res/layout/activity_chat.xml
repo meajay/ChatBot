@@ -8,6 +8,7 @@
     tools:context=".chat.view.ChatActivity">
 
     <TextView
+        android:id="@+id/no_data_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -24,8 +25,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_chat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_height="match_parent"
+        android:paddingBottom="60dp"
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,20 +41,21 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/chat_message_shape"
         android:elevation="4dp"
+        android:hint="@string/type_a_messae"
         android:imeOptions="actionDone"
         android:maxHeight="100dp"
         android:paddingStart="20dp"
-        android:paddingTop="8dp"
+        android:paddingTop="6dp"
         android:paddingEnd="20dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.CardView
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="14dp"
         android:elevation="4dp"
@@ -65,14 +67,26 @@
 
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginStart="9dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/ic_play_arrow"
             android:padding="8dp" />
 
     </android.support.v7.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/chat_message_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
