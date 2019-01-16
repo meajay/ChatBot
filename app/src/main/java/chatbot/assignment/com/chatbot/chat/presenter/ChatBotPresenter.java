@@ -3,6 +3,7 @@ package chatbot.assignment.com.chatbot.chat.presenter;
 import javax.inject.Inject;
 
 import chatbot.assignment.com.chatbot.base.BasePresenter;
+import chatbot.assignment.com.chatbot.chat.model.ChatMessage;
 import chatbot.assignment.com.chatbot.chat.view.ChatBotMvpView;
 import chatbot.assignment.com.chatbot.constants.APIConstants;
 import chatbot.assignment.com.chatbot.constants.AppConstants;
@@ -24,13 +25,17 @@ public class ChatBotPresenter extends BasePresenter<ChatBotMvpView> implements C
 
     @Override
     public void fetchChatResponse(String inputText) {
-        chatBotAPI.fetchChatData(APIConstants.FETCH_CHAT_URL, inputText).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(chatResponse -> {
-                    getView()
-                            .onChatResponse(AppConstants.SUCCESS, "success", chatResponse.getMessage());
-                },
-                throwable -> {
-                    getView().onChatResponse(AppConstants.ERROR, "error", null);
-                });
+//        chatBotAPI.fetchChatData(APIConstants.FETCH_CHAT_URL, inputText).subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread()).subscribe(chatResponse -> {
+//                    getView()
+//                            .onChatResponse(AppConstants.SUCCESS, "success", chatResponse.getMessage());
+//                },
+//                throwable -> {
+//                    getView().onChatResponse(AppConstants.ERROR, "error", null);
+//                });
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.setChatBotName("Rohit");
+        chatMessage.setMessage("shut up");
+        getView().onChatResponse(AppConstants.SUCCESS, "success", chatMessage);
     }
 }
