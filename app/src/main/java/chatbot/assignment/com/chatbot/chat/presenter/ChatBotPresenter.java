@@ -53,6 +53,6 @@ public class ChatBotPresenter extends BasePresenter<ChatBotMvpView> implements C
 
     @Override
     public void saveMessageToDb(ChatMessage chatMessage) {
-
+        dbService.saveMessageToDb(chatMessage);
     }
 }
