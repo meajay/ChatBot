@@ -49,6 +49,7 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
         chatBotPresenter.onAttach(this);
         setUpRecyclerView();
         setUpTextUI();
+
     }
 
     private void setUpTextUI() {
@@ -71,6 +72,7 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
     @Override
     protected void onResume() {
         super.onResume();
+        chatBotPresenter.getAllDbMessages();
     }
 
     private void initDependencies() {
@@ -87,8 +89,22 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
         }
     }
 
+    @Override
+    public void getAllMessagesFromDb(List<ChatMessage> chatMessageList) {
+
+        updateReclycerViewByList(chatMessageList);
+    }
+
+    private void updateReclycerViewByList(List<ChatMessage> chatMessageList) {
+        this.chatMessageList.clear();
+        this.chatMessageList.addAll(chatMessageList);
+        adapter.notifyDataSetChanged();
+        setUpTextUI();
+        recyclerChatView.smoothScrollToPosition(chatMessageList.size());
+    }
+
     public void sendChatMessage(View view) {
-        if(chatMessageET.getText().toString().trim().length() == 0)
+        if (chatMessageET.getText().toString().trim().length() == 0)
             return;
         progressBar.setVisibility(View.VISIBLE);
         ChatMessage chatMessage = new ChatMessage();
@@ -96,7 +112,8 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
         chatMessage.setMessage(chatMessageET.getText().toString().trim());
         chatMessage.setSender(true);
         updateReclycerView(chatMessage);
-        chatBotPresenter.fetchChatResponse("Bot : " +chatMessageET.getText().toString().trim());
+        chatBotPresenter.saveMessageToDb(chatMessage);
+        chatBotPresenter.fetchChatResponse("Bot : " + chatMessageET.getText().toString().trim());
         chatMessageET.getText().clear();
     }
 
@@ -106,4 +123,6 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
         setUpTextUI();
         recyclerChatView.smoothScrollToPosition(chatMessageList.size());
     }
+
+
 }

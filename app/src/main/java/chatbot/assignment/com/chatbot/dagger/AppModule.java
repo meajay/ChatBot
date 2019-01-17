@@ -6,6 +6,8 @@ import android.content.Context;
 import chatbot.assignment.com.chatbot.chat.presenter.ChatBotPresenter;
 import chatbot.assignment.com.chatbot.dagger.qualifier.ApplicationContext;
 import chatbot.assignment.com.chatbot.dagger.scope.AppScope;
+import chatbot.assignment.com.chatbot.db.ChatBotDataBase;
+import chatbot.assignment.com.chatbot.db.DbService;
 import chatbot.assignment.com.chatbot.network.api.ChatBotAPI;
 import dagger.Module;
 import dagger.Provides;
@@ -34,9 +36,16 @@ public class AppModule {
         return application.getBaseContext();
     }
 
+
     @Provides
     @AppScope
-    ChatBotPresenter provideChatBotPresenter(ChatBotAPI chatBotAPI){
-        return new ChatBotPresenter(chatBotAPI);
+    DbService provideDbService(@ApplicationContext Context context) {
+        return ChatBotDataBase.getDataBase(context);
+    }
+
+    @Provides
+    @AppScope
+    ChatBotPresenter provideChatBotPresenter(DbService dbService,ChatBotAPI chatBotAPI) {
+        return new ChatBotPresenter(chatBotAPI,dbService);
     }
 }
