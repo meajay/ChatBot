@@ -16,9 +16,9 @@ import io.reactivex.Observable;
  * Created by Ajay on 15-01-2019.
  */
 public class ChatBotAPI {
-    public Observable<ChatResponse> fetchChatData(String url, String chatMessage) {
+    public Observable<ChatResponse> fetchChatData( String chatMessage) {
         return Observable.create(emitter -> {
-            AndroidNetworking.get(url)
+            AndroidNetworking.get(APIConstants.FETCH_CHAT_URL)
                     .addHeaders("Content-Type", "application/x-www-form-urlencoded")
                     .addQueryParameter("message",chatMessage)
                     .build()

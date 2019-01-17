@@ -3,8 +3,10 @@ package chatbot.assignment.com.chatbot.dagger;
 import chatbot.assignment.com.chatbot.chat.view.ChatActivity;
 import chatbot.assignment.com.chatbot.ChatBotApp;
 import chatbot.assignment.com.chatbot.dagger.scope.AppScope;
+import chatbot.assignment.com.chatbot.db.DbService;
 import chatbot.assignment.com.chatbot.network.NetworkModule;
 import chatbot.assignment.com.chatbot.network.api.ChatBotAPI;
+import chatbot.assignment.com.chatbot.workmanager.WorkerUtils;
 import dagger.Component;
 
 /**
@@ -17,7 +19,11 @@ public interface AppComponent {
 
     void inject(ChatActivity chatActivity);
 
+    void inject(WorkerUtils workerUtils);
+
     ChatBotAPI getChatBotAPI();
+
+    DbService getDbService();
 
 }
 

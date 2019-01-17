@@ -2,7 +2,11 @@ package chatbot.assignment.com.chatbot.dagger;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import androidx.work.WorkManager;
+import chatbot.assignment.com.chatbot.R;
 import chatbot.assignment.com.chatbot.chat.presenter.ChatBotPresenter;
 import chatbot.assignment.com.chatbot.dagger.qualifier.ApplicationContext;
 import chatbot.assignment.com.chatbot.dagger.scope.AppScope;
@@ -46,6 +50,7 @@ public class AppModule {
     @Provides
     @AppScope
     ChatBotPresenter provideChatBotPresenter(DbService dbService,ChatBotAPI chatBotAPI) {
-        return new ChatBotPresenter(chatBotAPI,dbService);
+        WorkManager workManager = WorkManager.getInstance();
+        return new ChatBotPresenter(chatBotAPI,dbService,workManager);
     }
 }

@@ -22,6 +22,7 @@ import chatbot.assignment.com.chatbot.R;
 import chatbot.assignment.com.chatbot.chat.model.ChatMessage;
 import chatbot.assignment.com.chatbot.chat.presenter.ChatBotPresenter;
 import chatbot.assignment.com.chatbot.constants.AppConstants;
+import chatbot.assignment.com.chatbot.network.NetworkUtil;
 
 public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
 
@@ -67,12 +68,12 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
         recyclerChatView.setLayoutManager(linearLayoutManager);
         adapter = new ChatAdapter(this, chatMessageList);
         recyclerChatView.setAdapter(adapter);
+        chatBotPresenter.getAllDbMessages();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        chatBotPresenter.getAllDbMessages();
     }
 
     private void initDependencies() {
@@ -81,8 +82,8 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
 
     @Override
     public void onChatResponse(int result, String message, ChatMessage chatMessage) {
+        progressBar.setVisibility(View.GONE);
         if (AppConstants.SUCCESS == result) {
-            progressBar.setVisibility(View.GONE);
             updateReclycerView(chatMessage);
         } else {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -91,7 +92,7 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
 
     @Override
     public void getAllMessagesFromDb(List<ChatMessage> chatMessageList) {
-
+        progressBar.setVisibility(View.GONE);
         updateReclycerViewByList(chatMessageList);
     }
 
@@ -112,8 +113,13 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
         chatMessage.setMessage(chatMessageET.getText().toString().trim());
         chatMessage.setSender(true);
         updateReclycerView(chatMessage);
+        if (NetworkUtil.isNetworkAvailable(this)) {
+            chatBotPresenter.fetchChatResponse("Bot : " + chatMessageET.getText().toString().trim());
+        } else {
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+            chatBotPresenter.addToWorkManager("Bot : " + chatMessageET.getText().toString().trim());
+        }
         chatBotPresenter.saveMessageToDb(chatMessage);
-        chatBotPresenter.fetchChatResponse("Bot : " + chatMessageET.getText().toString().trim());
         chatMessageET.getText().clear();
     }
 

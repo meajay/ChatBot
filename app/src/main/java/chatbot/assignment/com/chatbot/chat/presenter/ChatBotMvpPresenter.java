@@ -9,4 +9,5 @@ public interface ChatBotMvpPresenter {
  void fetchChatResponse(String inputText);
  void getAllDbMessages();
  void saveMessageToDb(ChatMessage chatMessage);
+ void addToWorkManager(String message);
 }

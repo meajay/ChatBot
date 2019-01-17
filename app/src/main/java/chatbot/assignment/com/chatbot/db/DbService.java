@@ -4,12 +4,10 @@ import android.content.Context;
 
 import java.util.List;
 
-import chatbot.assignment.com.chatbot.chat.GetAllMessages;
 import chatbot.assignment.com.chatbot.chat.model.ChatMessage;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
-import io.reactivex.Scheduler;
-import io.reactivex.SingleObserver;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -58,27 +56,8 @@ public class DbService {
                 });
     }
 
-    public void getAllMessages(GetAllMessages getAllMessages) {
-        chatBotDataBase.chatMessageDao().findMessages().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<ChatMessage>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        compositeDisposable.add(d);
-                    }
-
-                    @Override
-                    public void onSuccess(List<ChatMessage> chatMessages) {
-                        if (chatMessages.size() > 0) {
-                            getAllMessages.getAllMessages(chatMessages);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
+    public Flowable<List<ChatMessage>> getAllMessages() {
+        return chatBotDataBase.chatMessageDao().getAll();
     }
 
 
