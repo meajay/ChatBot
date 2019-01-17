@@ -6,8 +6,8 @@ android {
         applicationId "chatbot.assignment.com.chatbot"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 2
-        versionName "2.0"
+        versionCode 3
+        versionName "3.0"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
@@ -52,6 +52,7 @@ dependencies {
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.6.1@aar'
+    implementation "android.arch.work:work-runtime:1.0.0-beta02"
 
     //butterknife and dagger
     implementation 'com.google.dagger:dagger:2.14.1'

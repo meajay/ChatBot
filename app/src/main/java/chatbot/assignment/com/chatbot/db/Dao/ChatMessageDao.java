@@ -9,6 +9,7 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 import chatbot.assignment.com.chatbot.chat.model.ChatMessage;
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @Dao
@@ -17,5 +18,5 @@ public interface ChatMessageDao {
     void insert(ChatMessage chatMessage);
 
     @Query("SELECT * FROM chat_message")
-    Single<List<ChatMessage>> findMessages();
+    Flowable<List<ChatMessage>> getAll();
 }
