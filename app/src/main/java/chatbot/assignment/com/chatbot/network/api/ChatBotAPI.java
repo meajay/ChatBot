@@ -20,7 +20,6 @@ public class ChatBotAPI {
         return Observable.create(emitter -> {
             AndroidNetworking.get(url)
                     .addHeaders("Content-Type", "application/x-www-form-urlencoded")
-                    .addQueryParameter(AppConstants.KEY,APIConstants.API_KEY)
                     .addQueryParameter("message",chatMessage)
                     .build()
                     .getAsJSONObject(new JSONObjectRequestListener() {

@@ -27,8 +27,11 @@ public class ChatBotPresenter extends BasePresenter<ChatBotMvpView> implements C
     public void fetchChatResponse(String inputText) {
         chatBotAPI.fetchChatData(APIConstants.FETCH_CHAT_URL, inputText).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(chatResponse -> {
+                    ChatMessage chatMessage = chatResponse.getMessage();
+                    chatMessage.setChatMessaqeId(System.currentTimeMillis());
+                    chatMessage.setSender(false);
                     getView()
-                            .onChatResponse(AppConstants.SUCCESS, "success", chatResponse.getMessage());
+                            .onChatResponse(AppConstants.SUCCESS, "success",chatMessage);
                 },
                 throwable -> {
                     getView().onChatResponse(AppConstants.ERROR, "error", null);

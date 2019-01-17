@@ -71,7 +71,6 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
     @Override
     protected void onResume() {
         super.onResume();
-        chatBotPresenter.fetchChatResponse("Hello");
     }
 
     private void initDependencies() {
@@ -89,14 +88,16 @@ public class ChatActivity extends AppCompatActivity implements ChatBotMvpView {
     }
 
     public void sendChatMessage(View view) {
+        if(chatMessageET.getText().toString().trim().length() == 0)
+            return;
         progressBar.setVisibility(View.VISIBLE);
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setChatMessaqeId(System.currentTimeMillis());
         chatMessage.setMessage(chatMessageET.getText().toString().trim());
         chatMessage.setSender(true);
         updateReclycerView(chatMessage);
+        chatBotPresenter.fetchChatResponse("Bot : " +chatMessageET.getText().toString().trim());
         chatMessageET.getText().clear();
-        chatBotPresenter.fetchChatResponse(chatMessageET.getText().toString().trim());
     }
 
     private void updateReclycerView(ChatMessage chatMessage) {

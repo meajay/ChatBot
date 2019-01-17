@@ -12,7 +12,7 @@ public class ChatResponse {
     private int success;
     @SerializedName("errorMessage")
     private String errorMessage;
-    @SerializedName("message")
+    @SerializedName("args")
     private ChatMessage message;
 
     public int getSuccess() {
